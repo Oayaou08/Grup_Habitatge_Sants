@@ -1,6 +1,4 @@
-// ============================================================
 // main.js — GHAS Web · Orquestrador principal
-// ============================================================
 
 import { fetchNews, fetchEvents, clearCache } from './api.js';
 import {
@@ -14,7 +12,29 @@ import {
   updateLastUpdated,
 } from './render.js';
 
-// ── Estado global ─────────────────────────────────────────────
+// Mode fosc
+const button = document.getElementById('theme-toggle');
+
+button.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+});
+
+// Cargar preferencia guardada
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+button.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+
+  if (document.body.classList.contains('dark')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// Estado global
 
 const state = {
   news:    [],
@@ -26,7 +46,7 @@ const state = {
 // Exponer recarga global (usado por botón "Reintentar")
 window.GHAS = { reload };
 
-// ── Bootstrap ─────────────────────────────────────────────────
+// Bootstrap 
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -38,7 +58,7 @@ async function init() {
   setupAutoRefresh();
 }
 
-// ── Carga de datos ────────────────────────────────────────────
+// Carga de datos 
 
 async function loadData() {
   if (state.loading) return;
@@ -82,14 +102,14 @@ export async function reload() {
   await loadData();
 }
 
-// ── Skeletons ─────────────────────────────────────────────────
+// Skeletons 
 
 function showSkeletons() {
   renderSkeleton('events-grid', 3);
   renderSkeleton('news-grid',   4);
 }
 
-// ── Auto-refresh ──────────────────────────────────────────────
+//Auto-refresh 
 
 function setupAutoRefresh() {
   // Refrescar cada 10 minutos
@@ -107,7 +127,7 @@ function setupAutoRefresh() {
   });
 }
 
-// ── Nav activa en scroll ──────────────────────────────────────
+//Nav activa en scroll 
 
 function setupNav() {
   const sections = document.querySelectorAll('section[id]');
@@ -131,7 +151,7 @@ function setupNav() {
   sections.forEach(s => observer.observe(s));
 }
 
-// ── Menú móvil ────────────────────────────────────────────────
+//Menú móvil 
 
 function setupMobileMenu() {
   const toggle = document.getElementById('menu-toggle');
@@ -154,7 +174,7 @@ function setupMobileMenu() {
   });
 }
 
-// ── Utils UI ──────────────────────────────────────────────────
+//  Utils UI 
 
 function updateEventsCount(events) {
   const today   = new Date(); today.setHours(0, 0, 0, 0);
