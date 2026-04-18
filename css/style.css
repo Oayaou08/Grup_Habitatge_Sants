@@ -48,9 +48,12 @@ body {
 }
 
 /* Modo oscuro */
-body.dark {
-  background-color: #121212;
-  color: white;
+/* Modo oscuro por defecto */
+
+/* Modo claro */
+body.light {
+  background-color: white;
+  color: gray;
 }
 
 img { display: block; max-width: 100%; }

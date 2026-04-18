@@ -15,22 +15,26 @@ import {
 // Mode fosc
 const button = document.getElementById('theme-toggle');
 
-button.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-});
+// 1. Cargar preferencia guardada
+const savedTheme = localStorage.getItem('theme');
 
-// Cargar preferencia guardada
-if (localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark');
+if (savedTheme) {
+  document.body.classList.toggle('light', savedTheme === 'light');
+} else {
+  // 2. Detectar preferencia del sistema
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  document.body.classList.toggle('light', prefersLight);
 }
 
+// 3. Botón para cambiar
 button.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
 
-  if (document.body.classList.contains('dark')) {
-    localStorage.setItem('theme', 'dark');
-  } else {
+  // Guardar preferencia
+  if (document.body.classList.contains('light')) {
     localStorage.setItem('theme', 'light');
+  } else {
+    localStorage.setItem('theme', 'dark');
   }
 });
 
