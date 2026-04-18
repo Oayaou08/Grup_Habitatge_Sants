@@ -38,6 +38,7 @@ button.addEventListener('click', () => {
   }
 });
 
+
 // Estado global
 
 const state = {
