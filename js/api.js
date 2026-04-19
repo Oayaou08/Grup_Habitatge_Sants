@@ -15,6 +15,8 @@ export const CONFIG = {
   CACHE_TTL_MS: 5 * 60 * 1000,
 };
 
+const _cache = {};
+
 function buildURL(sheetName) {
   return `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
 }
