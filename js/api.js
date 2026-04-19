@@ -7,7 +7,7 @@
 
 
 export const CONFIG = {
-  SHEET_ID: '1AbCDeFGhijkLMNOPqrsTUVwxYZ',
+  SHEET_ID: '2PACX-1vSwPoWTnG3j1R-bPtHwf4H2FK6feKqW1Dgsa5YYmn-cuJoX0F7W3N7Tc_zDAeXprWi56yJvkIrD_ZU7',
   SHEETS: {
     news: 'news',
     events: 'events',
