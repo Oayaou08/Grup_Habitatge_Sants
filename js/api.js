@@ -7,18 +7,14 @@
 
 
 export const CONFIG = {
-  SHEET_ID: 'TU_SHEET_ID_AQUI',   // ← ÚNICA LÍNEA A EDITAR
+  SHEET_ID: '1AbCDeFGhijkLMNOPqrsTUVwxYZ',
   SHEETS: {
-    news:   'news',
+    news: 'news',
     events: 'events',
   },
-  CACHE_TTL_MS: 5 * 60 * 1000,    // 5 minutos de caché
+  CACHE_TTL_MS: 5 * 60 * 1000,
 };
 
-// Caché en memoria
-const _cache = {};
-
-// Construye la URL de la API pública de Google Sheets (gviz)
 function buildURL(sheetName) {
   return `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
 }
