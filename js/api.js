@@ -1,9 +1,3 @@
-// ============================================================
-// api.js — GHAS Web · Capa de datos (Google Sheets → JSON)
-// ============================================================
-// CONFIGURACIÓN: Cambia SHEET_ID por el ID de tu Google Sheet
-// El ID está en la URL: docs.google.com/spreadsheets/d/[ESTE_ID]/edit
-// ============================================================
 
 
 export const CONFIG = {
