@@ -3,31 +3,27 @@
 
 ---
 
-## CONFIGURACIÓ INICIAL (una sola vegada, ~10 minuts)
-
-### Pas 1 — Crea el Google Sheet
-
-1. Ves a **drive.google.com** i crea un full de càlcul nou
-2. Anomena'l: `GHAS Web - Continguts`
-3. Crea **dues pestanyes** (part inferior de la pantalla):
-   - Una que es digui exactament: `news`
-   - Una que es digui exactament: `events`
+### Pas 1 — Accès a la fulla de càlcul
+ - Ves a **[text](https://docs.google.com/spreadsheets/d/1MPZQefhsSIKvo_JKLAhTvaXRfjS8S-a4eCyy1Ore3MA/edit?gid=0#gid=0)** i crea un full de càlcul nou
+ - Hi han **dues pestanyes** (part inferior de la pantalla):
+   1. `news`
+   2. `events`
 
 ---
 
 ### Pas 2 — Estructura de la pestanya `news`
 
-A la **primera fila** escriu exactament (en cel·les A1, B1, C1, D1):
+A la **primera fila** inserir l'informació desitjada segons les cel·les (en cel·les A1, B1, C1, D1):
 
 | A       | B    | C    | D       |
 |---------|------|------|---------|
 | title   | date | type | content |
 
-**Exemple de contingut (fila 2):**
+**Estructura de contingut i exemple:**
 
 | title                          | date       | type        | content                                      |
 |--------------------------------|------------|-------------|----------------------------------------------|
-| Acció contra desnonament Carrer Gran Via | 2024-06-15 | desnonament | Concentració de suport a la família Martínez |
+| Acció | Data (YYYY-MM-DD) | tipus (desnonament, manifestació...) | Descripció |
 | Assemblea mensual de juny      | 2024-06-01 | assemblea   | Debat sobre la nova llei d'habitatge          |
 
 **Valors vàlids per a `type`:** desnonament · assemblea · comunicat · premsa · altre
@@ -36,7 +32,7 @@ A la **primera fila** escriu exactament (en cel·les A1, B1, C1, D1):
 
 ### Pas 3 — Estructura de la pestanya `events`
 
-A la **primera fila** escriu (en cel·les A1, B1, C1, D1):
+Configuració similar a l'anterior pestanya. Classificar la informació segons cel·la (en cel·les A1, B1, C1, D1):
 
 | A     | B    | C        | D           |
 |-------|------|----------|-------------|
