@@ -4,86 +4,165 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Grup d'Habitatge de Sants (GHAS). Defensem el dret a l'habitatge digne al barri de Sants, Barcelona.">
-  <meta name="theme-color" content="#000000">
-  <!-- Open Graph -->
+  <meta name="theme-color" content="#0C0C10">
   <meta property="og:title"       content="GHAS — Grup d'Habitatge de Sants">
   <meta property="og:description" content="Defensem el dret a l'habitatge digne. Cap desnonament sense resposta.">
   <meta property="og:type"        content="website">
   <meta property="og:image"       content="assets/og-image.jpg">
-  
+
   <title>GHAS — Grup d'Habitatge de Sants</title>
-  
-  <!-- Fonts -->
+
+  <!--
+    FONTS:
+    - Anton       → titulars / display (identitat activista)
+    - DM Mono     → cos de text (substitueix Space Mono, més llegible)
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
-  <!--Avís de connexió -->
+
   <div id="connection-warning" role="alert" aria-live="polite"></div>
 
-  <!-- Header de pàgina-->
+
+  <!--HEADER -->
   <header class="site-header" role="banner">
     <div class="container">
       <div class="header-inner">
+
+        <!-- Logo -->
         <a href="#hero" class="site-logo" aria-label="GHAS - Inici">
-          <img src="assets/logo.png" alt="Grup d'Habitatge de Sants">
+          <img src="assets/logo.png" alt="Grup d'Habitatge de Sants" width="44" height="44">
         </a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Obrir menú"
-          aria-expanded="false"
-          aria-controls="main-nav"
-        >☰</button>
-        <button id="theme-toggle">
-          🌙☀️
-        </button>
-        
-        <nav class="main-nav" id="main-nav" aria-label="Navegació principal">
-          <ul class="nav__list">
-            <li>
-              <a href="#events" class="nav__link">
-                Accions
-                <span class="nav-badge" id="events-count" aria-label="accions pendents"></span>
-              </a>
-            </li>
-            <li><a href="#news"    class="nav__link">Notícies</a></li>
-            <li><a href="#about"   class="nav__link">Qui som</a></li>
-            <li><a href="recursos.html" class="nav__link">Recursos</a></li>
-            <li><a href="#contact" class="nav__link">Contacte</a></li>
-            <li>
-              <a href="#contact" class="nav__link" style="background:var(--red); color:var(--black);">
-                UNEIX-TE
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <!-- Controls: menú mòbil + nav + idioma -->
+        <div class="header-controls">
+
+          <!-- Botó hamburguesa (visible només en mòbil) -->
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Obrir menú"
+            aria-expanded="false"
+            aria-controls="main-nav"
+          >
+            <span class="menu-toggle__bar"></span>
+            <span class="menu-toggle__bar"></span>
+            <span class="menu-toggle__bar"></span>
+          </button>
+
+          <!-- Nav principal -->
+          <nav class="main-nav" id="main-nav" aria-label="Navegació principal">
+            <ul class="nav__list">
+              <li>
+                <a href="#events" class="nav__link">
+                  Accions
+                  <span class="nav-badge" id="events-count" aria-label="accions pendents"></span>
+                </a>
+              </li>
+              <li><a href="#news"        class="nav__link">Notícies</a></li>
+              <li><a href="#map"         class="nav__link">Xarxa</a></li>
+              <li><a href="#about"       class="nav__link">Qui som</a></li>
+              <li><a href="recursos.html" class="nav__link">Recursos</a></li>
+              <li><a href="#contact"     class="nav__link">Contacte</a></li>
+              <li><a href="#contact"     class="nav__link nav__link--cta">Uneix-te</a></li>
+            </ul>
+          </nav>
+
+          <div class="lang-selector" id="lang-selector">
+
+            <button
+              class="lang-selector__btn"
+              id="lang-btn"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-label="Seleccionar idioma"
+            >
+              <span class="lang-selector__current" id="lang-current">CA</span>
+              <svg class="lang-selector__chevron" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <ul
+              class="lang-selector__menu"
+              id="lang-menu"
+              role="listbox"
+              aria-label="Selecció d'idioma"
+            >
+              <li class="lang-option lang-option--active"
+                  role="option" data-lang="ca" aria-selected="true">
+                <span class="lang-option__code">CA</span>
+                <span class="lang-option__name">Català</span>
+              </li>
+              <li class="lang-option"
+                  role="option" data-lang="es" aria-selected="false">
+                <span class="lang-option__code">ES</span>
+                <span class="lang-option__name">Español</span>
+              </li>
+              <li class="lang-option"
+                  role="option" data-lang="ar" aria-selected="false">
+                <span class="lang-option__code">AR</span>
+                <span class="lang-option__name lang-option__name--rtl">عربي</span>
+              </li>
+            </ul>
+          </div>
+          <!--
+            JS A IMPLEMENTAR (js/i18n.js):
+
+            const langBtn  = document.getElementById('lang-btn');
+            const langMenu = document.getElementById('lang-menu');
+            const langOpts = langMenu.querySelectorAll('.lang-option');
+
+            langBtn.addEventListener('click', () => {
+              const open = langBtn.getAttribute('aria-expanded') === 'true';
+              langBtn.setAttribute('aria-expanded', String(!open));
+            });
+
+            document.addEventListener('click', (e) => {
+              if (!e.target.closest('#lang-selector')) {
+                langBtn.setAttribute('aria-expanded', 'false');
+              }
+            });
+
+            langOpts.forEach(opt => {
+              opt.addEventListener('click', () => {
+                langOpts.forEach(o => { o.classList.remove('lang-option--active'); o.setAttribute('aria-selected','false'); });
+                opt.classList.add('lang-option--active');
+                opt.setAttribute('aria-selected', 'true');
+                document.getElementById('lang-current').textContent = opt.dataset.lang.toUpperCase();
+                langBtn.setAttribute('aria-expanded', 'false');
+                // Aquí: carregar traduccions / redirigir a subpath
+                // document.documentElement.lang = opt.dataset.lang;
+              });
+            });
+          -->
+
+        </div><!-- /header-controls -->
       </div>
     </div>
   </header>
 
-  <!-- Títol alerta -->
+
+  <!--ALERT BAR -->
   <div class="alert-bar" role="marquee" aria-label="Pròximes accions">
     <div class="alert-label">ACCIONS</div>
     <div class="alert-ticker-wrap">
-      <div id="alert-ticker"></div>
+      <div id="alert-ticker" class="alert-ticker"></div>
     </div>
   </div>
 
+
   <main>
 
-    <!-- Hero  -->
+    <!-- HERO-->
     <section id="hero" aria-label="Portada">
-      <!-- Text de fons decoratiu -->
-      <div class="hero-bg-text" aria-hidden="true">
-        <span>GHAS</span>
-      </div>
+      <div class="hero-bg-text" aria-hidden="true">GHAS</div>
 
       <div class="hero-content container">
         <div>
@@ -101,13 +180,13 @@
           </p>
 
           <div class="hero-cta-row">
-            <a href="#events" class="btn-urgent">↓ Pròxima acció</a>
+            <a href="#events"  class="btn-urgent">↓ Pròxima acció</a>
             <a href="#contact" class="btn-primary">Uneix-te</a>
           </div>
 
-          <!-- Status dinàmic: es pobla des de main.js -->
+          <!-- Status dinàmic: poblat per main.js via renderHeroStatus() -->
           <div class="hero-status-bar" id="hero-status" aria-live="polite">
-            <span class="status-dot status-dot--gray"></span>
+            <span class="status-dot status-dot--gray status-dot--pulse"></span>
             <span>Carregant informació…</span>
           </div>
         </div>
@@ -121,98 +200,94 @@
       </div>
     </section>
 
-    <!-- Manifest missatge en moviment -->
+
+    <!-- MANIFESTO STRIP — Text en moviment continu-->
     <div class="manifesto-strip" aria-hidden="true">
       <div class="manifesto-inner">
-        <!-- Primera còpia -->
-        <span class="manifesto-item">Dret a l'habitatge</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Fora especuladors</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Sants no es ven</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Cap desnonament</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Lloguer just ja</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">No som mercaderia</span>
-        <span class="manifesto-dot"></span>
-        <!-- Còpia duplicada per al loop continu -->
-        <span class="manifesto-item">Dret a l'habitatge</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Fora especuladors</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Sants no es ven</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Cap desnonament</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">Lloguer just ja</span>
-        <span class="manifesto-dot"></span>
-        <span class="manifesto-item">No som mercaderia</span>
-        <span class="manifesto-dot"></span>
+        <span class="manifesto-item">Dret a l'habitatge</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Fora especuladors</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Sants no es ven</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Cap desnonament</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Lloguer just ja</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">No som mercaderia</span><span class="manifesto-dot">◆</span>
+        <!-- Còpia duplicada per al loop continu sense salt -->
+        <span class="manifesto-item">Dret a l'habitatge</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Fora especuladors</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Sants no es ven</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Cap desnonament</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">Lloguer just ja</span><span class="manifesto-dot">◆</span>
+        <span class="manifesto-item">No som mercaderia</span><span class="manifesto-dot">◆</span>
       </div>
     </div>
 
-    <!-- Events -->
+
+    <!-- ACCIONS / EVENTS
+         Poblat per render.js → renderEvents()-->
     <section id="events" class="section" aria-labelledby="events-heading">
       <div class="container">
         <div class="events-header">
           <h2 class="section-title" id="events-heading">Accions</h2>
           <button
-            class="btn-primary"
+            class="btn-ghost"
             onclick="window.GHAS?.reload()"
-            style="font-size:0.75rem; padding:0.5rem 1rem;"
             aria-label="Actualitzar dades"
           >↺ Actualitzar</button>
         </div>
-
-        <div class="events-grid" id="events-grid" role="list" aria-live="polite" aria-label="Llista d'accions">
+        <div class="events-grid" id="events-grid"
+             role="list" aria-live="polite" aria-label="Llista d'accions">
           <!-- Poblat per render.js -->
         </div>
       </div>
     </section>
 
-    <!-- Secció missatge -->
+
+    <!-- ═══════════════════════════════════════════════════
+         CITA / QUOTE
+    ════════════════════════════════════════════════════ -->
     <div class="quote-section" aria-hidden="true">
       <div class="container">
         <div class="quote-inner">
           <div class="quote-mark">"</div>
-          <p class="quote-text">
-            L'habitatge és un dret,<br>
-            no una mercaderia.
-          </p>
+          <p class="quote-text">L'habitatge és un dret,<br>no una mercaderia.</p>
         </div>
       </div>
     </div>
 
-    <!--Notícies  -->
+
+    <!-- ═══════════════════════════════════════════════════
+         NOTÍCIES
+         Poblat per render.js → renderNews() + renderNewsFilters()
+    ════════════════════════════════════════════════════ -->
     <section id="news" class="section" aria-labelledby="news-heading">
       <div class="container">
         <h2 class="section-title" id="news-heading">Notícies</h2>
-
-        <div class="news-filters" id="news-filters" role="group" aria-label="Filtre de notícies">
+        <div class="news-filters" id="news-filters"
+             role="group" aria-label="Filtre de notícies">
           <!-- Poblat per render.js -->
         </div>
-
-        <div class="news-grid" id="news-grid" role="list" aria-live="polite" aria-label="Llista de notícies">
+        <div class="news-grid" id="news-grid"
+             role="list" aria-live="polite" aria-label="Llista de notícies">
           <!-- Poblat per render.js -->
         </div>
       </div>
     </section>
 
-    <!--Sobre el grup -->
+
+    <!-- ═══════════════════════════════════════════════════
+         QUI SOM
+    ════════════════════════════════════════════════════ -->
     <section id="about" class="section" aria-labelledby="about-heading">
       <div class="container">
         <h2 class="section-title" id="about-heading">Qui som</h2>
-
         <div class="about-grid">
           <div class="about-col">
             <h3>El Grup</h3>
             <p>
               El Grup d'Habitatge de Sants (GHAS) és un col·lectiu veïnal autònom
-              que lluita pel dret a l'habitatge digne al barri de Sants i a altres municipis de Barcelona.
-              Ens organitzem des de baix per fer front als desnonaments, l'especulació
-              immobiliària i les polítiques habitacionals injustes.
+              que lluita pel dret a l'habitatge digne al barri de Sants i a altres
+              municipis de Barcelona. Ens organitzem des de baix per fer front als
+              desnonaments, l'especulació immobiliària i les polítiques habitacionals
+              injustes.
             </p>
           </div>
           <div class="about-col">
@@ -228,33 +303,242 @@
       </div>
     </section>
 
-   <!--Añadir mapa de sindicatos en esta parte-->
-    
-    <!-- Contacte -->
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MAPA DE XARXA DE SINDICATS / GRUPS D'HABITATGE A CATALUNYA
+         ───────────────────────────────────────────────────────────────
+         ESTAT ACTUAL:
+           ✅ Estructura SVG i llegenda completes
+           ✅ 3 nodes d'exemple: GHAS (Barcelona), Sabadell, Lleida
+           ⏳ Interactivitat JS (tooltip, filtre, highlight): PENDENT → js/map.js
+
+         COM AFEGIR UN NOU GRUP:
+           1. Al SVG: copia el bloc <g class="map-node"> i ajusta cx/cy.
+              Referència de coordenades (viewBox 0 0 500 450):
+                Barcelona centre → cx="380" cy="288"
+                Girona           → cx="402" cy="152"
+                Lleida           → cx="148" cy="240"
+                Tarragona        → cx="332" cy="372"
+                Manresa          → cx="268" cy="252"
+                Terrassa         → cx="314" cy="264"
+                Mataró           → cx="418" cy="268"
+                Sabadell         → cx="320" cy="260"
+                Vic              → cx="336" cy="210"
+                Reus             → cx="316" cy="360"
+           2. A la llegenda: copia el bloc <li class="map-legend__item">.
+           3. Assegura't que data-node del <li> coincideixi amb
+              data-group del <g> al SVG (la JS els vincula).
+    ════════════════════════════════════════════════════════════════════ -->
+    <section id="map" class="section map-section" aria-labelledby="map-heading">
+      <div class="container">
+
+        <header class="map-header">
+          <h2 class="section-title" id="map-heading">Xarxa de Sindicats</h2>
+          <p class="map-subtitle">Col·lectius de defensa del dret a l'habitatge a Catalunya</p>
+        </header>
+
+        <div class="map-layout">
+
+          <!-- ── SVG interactiu de Catalunya ───────────────────────── -->
+          <div class="map-svg-wrapper">
+            <svg
+              class="map-svg"
+              viewBox="0 0 500 450"
+              role="img"
+              aria-label="Mapa de Catalunya amb la ubicació dels grups d'habitatge"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <radialGradient id="mapGlow" cx="62%" cy="58%" r="52%">
+                  <stop offset="0%"   stop-color="var(--red)"   stop-opacity="0.07"/>
+                  <stop offset="100%" stop-color="transparent"/>
+                </radialGradient>
+                <filter id="nodeglow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <!-- Fons amb gradient radial subtil -->
+              <rect width="500" height="450" fill="url(#mapGlow)"/>
+
+              <!-- ── CONTORN DE CATALUNYA (path simplificat) ──────────
+                   Forma recognoscible però no cartogràficament exacta.
+                   Per un contorn precís, substitueix aquest path per un
+                   fitxer GeoJSON convertit a SVG (ex: topojson + d3).
+              ───────────────────────────────────────────────────── -->
+              <path
+                class="catalonia-outline"
+                d="
+                  M 55,72
+                  C 90,52 162,28 232,18
+                  C 292,10 342,16 374,38
+                  L 408,72
+                  C 428,96 442,128 446,160
+                  L 448,202
+                  C 448,232 440,258 430,278
+                  L 414,302
+                  C 400,322 384,338 368,355
+                  L 338,387
+                  C 316,410 288,430 256,440
+                  L 218,446
+                  C 188,446 163,433 138,416
+                  L 102,390
+                  C 76,368 56,340 46,308
+                  L 36,268
+                  C 28,238 26,204 30,172
+                  L 36,128
+                  Z
+                "
+              />
+
+              <!-- Retícula de referència subtil (pot eliminar-se) -->
+              <line x1="0" y1="224" x2="500" y2="224" class="map-grid-line"/>
+              <line x1="250" y1="0" x2="250" y2="450" class="map-grid-line"/>
+
+              <!-- ══ NODES DE GRUPS ════════════════════════════════════
+                   Copia aquest bloc <g> per a cada nou grup.
+                   Ajusta cx/cy segons la taula de coordenades del comentari
+                   de la secció. Canvia data-group, data-city, data-url.
+              ══════════════════════════════════════════════════════ -->
+
+              <!-- NODE 1 · GHAS — Sants, Barcelona -->
+              <g class="map-node map-node--active"
+                 data-group="GHAS"
+                 data-city="Barcelona (Sants)"
+                 data-url="https://gruphabitatgesants.cat"
+                 role="button" tabindex="0"
+                 aria-label="GHAS - Grup d'Habitatge de Sants, Barcelona">
+                <circle class="map-node__pulse" cx="380" cy="288" r="6"/>
+                <circle class="map-node__dot"   cx="380" cy="288" r="6" filter="url(#nodeglow)"/>
+                <text   class="map-node__label" x="380" y="276">GHAS</text>
+              </g>
+
+              <!-- NODE 2 · Sindicat de Llogateres — Sabadell -->
+              <g class="map-node"
+                 data-group="SDL Sabadell"
+                 data-city="Sabadell"
+                 data-url="#"
+                 role="button" tabindex="0"
+                 aria-label="Sindicat de Llogateres de Sabadell">
+                <circle class="map-node__pulse" cx="320" cy="260" r="6"/>
+                <circle class="map-node__dot"   cx="320" cy="260" r="6" filter="url(#nodeglow)"/>
+                <text   class="map-node__label" x="320" y="248">Sabadell</text>
+              </g>
+
+              <!-- NODE 3 · Col·lectiu Habitatge — Lleida -->
+              <g class="map-node"
+                 data-group="CH Lleida"
+                 data-city="Lleida"
+                 data-url="#"
+                 role="button" tabindex="0"
+                 aria-label="Col·lectiu Habitatge Lleida">
+                <circle class="map-node__pulse" cx="148" cy="240" r="6"/>
+                <circle class="map-node__dot"   cx="148" cy="240" r="6" filter="url(#nodeglow)"/>
+                <text   class="map-node__label" x="148" y="228">Lleida</text>
+              </g>
+
+              <!-- ── AFEGEIX NOUS NODES AQUÍ ──
+                   Exemple (Girona):
+                   <g class="map-node" data-group="SLL Girona" data-city="Girona" data-url="#"
+                      role="button" tabindex="0" aria-label="Sindicat de Llogateres Girona">
+                     <circle class="map-node__pulse" cx="402" cy="152" r="6"/>
+                     <circle class="map-node__dot"   cx="402" cy="152" r="6" filter="url(#nodeglow)"/>
+                     <text   class="map-node__label" x="402" y="140">Girona</text>
+                   </g>
+              ───────────────────────────────── -->
+
+            </svg>
+          </div><!-- /map-svg-wrapper -->
+
+
+          <!-- ── Llegenda i llista de grups ───────────────────────── -->
+          <aside class="map-legend" aria-label="Llegenda i llista de grups">
+            <h3 class="map-legend__title">Grups actius</h3>
+
+            <ul class="map-legend__list">
+
+              <!-- LLEGENDA 1 — GHAS -->
+              <!-- data-node ha de coincidir amb data-group del SVG -->
+              <li class="map-legend__item map-legend__item--active" data-node="GHAS">
+                <span class="map-legend__dot"></span>
+                <div class="map-legend__info">
+                  <strong class="map-legend__name">GHAS</strong>
+                  <span class="map-legend__city">Barcelona · Sants</span>
+                  <a href="#" class="map-legend__link"
+                     target="_blank" rel="noopener">Visitar ↗</a>
+                </div>
+              </li>
+
+              <!-- LLEGENDA 2 — SDL Sabadell -->
+              <li class="map-legend__item" data-node="SDL Sabadell">
+                <span class="map-legend__dot"></span>
+                <div class="map-legend__info">
+                  <strong class="map-legend__name">Sindicat de Llogateres</strong>
+                  <span class="map-legend__city">Sabadell · Vallès Occidental</span>
+                  <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
+                </div>
+              </li>
+
+              <!-- LLEGENDA 3 — CH Lleida -->
+              <li class="map-legend__item" data-node="CH Lleida">
+                <span class="map-legend__dot"></span>
+                <div class="map-legend__info">
+                  <strong class="map-legend__name">Col·lectiu Habitatge</strong>
+                  <span class="map-legend__city">Lleida</span>
+                  <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
+                </div>
+              </li>
+
+              <!--
+                AFEGEIX MÉS GRUPS AQUÍ replicant l'estructura <li> anterior.
+                Exemple:
+                <li class="map-legend__item" data-node="SLL Girona">
+                  <span class="map-legend__dot"></span>
+                  <div class="map-legend__info">
+                    <strong class="map-legend__name">Sindicat de Llogateres Girona</strong>
+                    <span class="map-legend__city">Girona</span>
+                    <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
+                  </div>
+                </li>
+              -->
+            </ul>
+          </aside>
+
+        </div><!-- /map-layout -->
+      </div>
+    </section>
+
+
+    <!--CONTACTE-->
     <section id="contact" class="section" aria-labelledby="contact-heading">
       <div class="container">
         <h2 class="section-title" id="contact-heading">Contacte</h2>
-
         <div class="contact-grid">
           <div class="contact-main">
             <h3>Uneix-te<br>a la lluita.</h3>
             <p>
               Si estàs afectat per un desnonament, tens problemes amb el teu
               propietari o simplement vols participar en la defensa del dret
-              a l'habitatge, posa't en contacte amb nosaltres.
-              T'acompanyem.
+              a l'habitatge, posa't en contacte amb nosaltres. T'acompanyem.
             </p>
             <a href="mailto:gruphabitatgesants@gmail.com" class="btn-urgent">
               Escriu-nos ↗
             </a>
           </div>
-
           <div class="contact-links">
             <h4>Canals</h4>
-            <a href="https://www.facebook.com/GrupHabitatgeSants/"     class="contact-link-item" target="_blank" rel="noopener">f Facebook</a>
-            <a href="https://t.me/s/gruphabitatgesants"           class="contact-link-item" target="_blank" rel="noopener">✈ Telegram</a>
-            <a href="https://www.instagram.com/gruphabitatgesants/?hl=es"  class="contact-link-item" target="_blank" rel="noopener">◎ Instagram</a>
-            <a href="https://x.com/habitatgesants?lang=es"    class="contact-link-item" target="_blank" rel="noopener">✗ Twitter</a>
+            <a href="https://www.facebook.com/GrupHabitatgeSants/"
+               class="contact-link-item" target="_blank" rel="noopener">f  Facebook</a>
+            <a href="https://t.me/s/gruphabitatgesants"
+               class="contact-link-item" target="_blank" rel="noopener">✈  Telegram</a>
+            <a href="https://www.instagram.com/gruphabitatgesants/?hl=es"
+               class="contact-link-item" target="_blank" rel="noopener">◎  Instagram</a>
+            <a href="https://x.com/habitatgesants"
+               class="contact-link-item" target="_blank" rel="noopener">✗  Twitter/X</a>
           </div>
         </div>
       </div>
@@ -262,11 +546,16 @@
 
   </main>
 
-  <!-- Peu de pàgina -->
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-logo"><img src="assets/logo.png" alt="Grup d'Habitatge de Sants"></div>
+        <div class="footer-logo">
+          <img src="assets/logo.png" alt="Grup d'Habitatge de Sants" width="36" height="36">
+        </div>
         <div class="footer-meta">
           <span id="last-updated"></span>
           <span>Grup d'Habitatge de Sants · Barcelona</span>
@@ -274,7 +563,9 @@
       </div>
     </div>
   </footer>
-  <!--JS (mòduls) -->
+
+  <!-- Mòduls JS -->
   <script type="module" src="js/main.js"></script>
+
 </body>
 </html>
