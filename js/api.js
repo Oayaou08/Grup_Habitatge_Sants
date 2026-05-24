@@ -1,10 +1,8 @@
-
-
 export const CONFIG = {
-  SHEET_ID: '1MPZQefhsSIKvo_JKLAhTvaXRfjS8S-a4eCyy1Ore3MA',
+  SHEET_ID: "1MPZQefhsSIKvo_JKLAhTvaXRfjS8S-a4eCyy1Ore3MA",
   SHEETS: {
-    news: 'news',
-    events: 'events',
+    news: "news",
+    events: "events",
   },
   CACHE_TTL_MS: 5 * 60 * 1000,
 };
@@ -19,21 +17,23 @@ function buildURL(sheetName) {
 function parseGvizTable(table) {
   if (!table || !table.cols || !table.rows) return [];
 
-  const headers = table.cols.map(col =>
-    (col.label || col.id || '').toLowerCase().trim().replace(/\s+/g, '_')
+  const headers = table.cols.map((col) =>
+    (col.label || col.id || "").toLowerCase().trim().replace(/\s+/g, "_"),
   );
 
   return table.rows
-    .filter(row => row && row.c && row.c.some(cell => cell && cell.v != null))
-    .map(row => {
+    .filter(
+      (row) => row && row.c && row.c.some((cell) => cell && cell.v != null),
+    )
+    .map((row) => {
       const obj = {};
       headers.forEach((key, i) => {
         const cell = row.c?.[i];
         // Google formatea fechas como Date(year,month,day) — las normalizamos
-        if (cell && typeof cell.v === 'string' && cell.v.startsWith('Date(')) {
+        if (cell && typeof cell.v === "string" && cell.v.startsWith("Date(")) {
           obj[key] = cell.f || parseDateString(cell.v);
         } else {
-          obj[key] = cell ? (cell.v ?? '') : '';
+          obj[key] = cell ? (cell.v ?? "") : "";
         }
       });
       return obj;
@@ -45,7 +45,7 @@ function parseDateString(str) {
   const match = str.match(/Date\((\d+),(\d+),(\d+)\)/);
   if (!match) return str;
   const [, y, m, d] = match.map(Number);
-  return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  return `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 }
 
 // Fetch con caché
@@ -67,15 +67,19 @@ async function fetchSheet(sheetName) {
   const text = await response.text();
 
   // Extraer JSON del wrapper JSONP de Google
-  const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?\s*$/);
+  const match = text.match(
+    /google\.visualization\.Query\.setResponse\(([\s\S]*)\);?\s*$/,
+  );
   if (!match) {
-    throw new Error(`Respuesta inesperada de Google Sheets para "${sheetName}"`);
+    throw new Error(
+      `Respuesta inesperada de Google Sheets para "${sheetName}"`,
+    );
   }
 
   const parsed = JSON.parse(match[1]);
 
-  if (parsed.status === 'error') {
-    const errMsg = parsed.errors?.[0]?.detailed_message || 'Error desconocido';
+  if (parsed.status === "error") {
+    const errMsg = parsed.errors?.[0]?.detailed_message || "Error desconocido";
     throw new Error(`Google Sheets error: ${errMsg}`);
   }
 
@@ -99,16 +103,16 @@ export async function fetchEvents() {
 
   // Separar próximos (desc) y pasados (asc)
   const upcoming = rows
-    .filter(e => new Date(e.date) >= today)
+    .filter((e) => new Date(e.date) >= today)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const past = rows
-    .filter(e => new Date(e.date) < today)
+    .filter((e) => new Date(e.date) < today)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return [...upcoming, ...past];
 }
 
 export function clearCache() {
-  Object.keys(_cache).forEach(k => delete _cache[k]);
+  Object.keys(_cache).forEach((k) => delete _cache[k]);
 }

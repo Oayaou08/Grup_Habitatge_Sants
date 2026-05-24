@@ -1,5 +1,3 @@
-// main.js — GHAS Web · Orquestrador principal
-
 import { fetchNews, fetchEvents, clearCache } from './api.js';
 import {
   renderHeroStatus,
@@ -12,34 +10,21 @@ import {
   updateLastUpdated,
 } from './render.js';
 
-// Mode fosc
-const button = document.getElementById('theme-toggle');
-
-// 1. Cargar preferencia guardada
 const savedTheme = localStorage.getItem('theme');
-
 if (savedTheme) {
   document.body.classList.toggle('light', savedTheme === 'light');
 } else {
-  // 2. Detectar preferencia del sistema
   const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
   document.body.classList.toggle('light', prefersLight);
 }
 
-// 3. Botón para cambiar
-button.addEventListener('click', () => {
-  document.body.classList.toggle('light');
-
-  // Guardar preferencia
-  if (document.body.classList.contains('light')) {
-    localStorage.setItem('theme', 'light');
-  } else {
-    localStorage.setItem('theme', 'dark');
-  }
-});
-
-
-// Estado global
+const themeBtn = document.getElementById('theme-toggle');
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  });
+}
 
 const state = {
   news:    [],
@@ -48,10 +33,8 @@ const state = {
   error:   null,
 };
 
-// Exponer recarga global (usado por botón "Reintentar")
+// Exposa recàrrega global (usat pel botó "Reintentar" i onclick del HTML)
 window.GHAS = { reload };
-
-// Bootstrap 
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -63,7 +46,7 @@ async function init() {
   setupAutoRefresh();
 }
 
-// Carga de datos 
+//Càrrega de dades 
 
 async function loadData() {
   if (state.loading) return;
@@ -76,10 +59,8 @@ async function loadData() {
     state.news   = news;
     state.events = events;
 
-    // Renderizar todo
     renderHeroStatus(events);
     renderAlertTicker(events);
-
     renderEvents(events);
     renderNews(news);
     renderNewsFilters(news, (filter) => {
@@ -90,7 +71,7 @@ async function loadData() {
     updateEventsCount(events);
 
   } catch (err) {
-    console.error('[GHAS] Error cargando datos:', err);
+    console.error('[GHAS] Error carregant dades:', err);
     state.error = err.message;
     renderError('events-grid', 'No s\'han pogut carregar els esdeveniments. ' + err.message);
     renderError('news-grid',   'No s\'han pogut carregar les notícies. ' + err.message);
@@ -100,35 +81,32 @@ async function loadData() {
   }
 }
 
-// Limpia cachés y recarga
+// Recàrrega manual 
+
 export async function reload() {
   clearCache();
   showSkeletons();
   await loadData();
 }
 
-// Skeletons 
+//Skeletons 
 
 function showSkeletons() {
   renderSkeleton('events-grid', 3);
   renderSkeleton('news-grid',   4);
 }
 
-//Auto-refresh 
+// Auto-refresh 
 
 function setupAutoRefresh() {
-  // Refrescar cada 10 minutos
-  const INTERVAL = 10 * 60 * 1000;
+  const INTERVAL = 10 * 60 * 1000; // 10 minuts
   setInterval(() => {
     clearCache();
     loadData();
   }, INTERVAL);
 
-  // Refrescar al volver a la pestaña
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      loadData();
-    }
+    if (document.visibilityState === 'visible') loadData();
   });
 }
 
@@ -156,7 +134,7 @@ function setupNav() {
   sections.forEach(s => observer.observe(s));
 }
 
-//Menú móvil 
+// Menú mòbil 
 
 function setupMobileMenu() {
   const toggle = document.getElementById('menu-toggle');
@@ -169,7 +147,6 @@ function setupMobileMenu() {
     toggle.textContent = open ? '✕' : '☰';
   });
 
-  // Cerrar al hacer click en un enlace
   nav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       nav.classList.remove('nav--open');
@@ -179,12 +156,12 @@ function setupMobileMenu() {
   });
 }
 
-//  Utils UI 
+//Utils UI 
 
 function updateEventsCount(events) {
-  const today   = new Date(); today.setHours(0, 0, 0, 0);
+  const today    = new Date(); today.setHours(0, 0, 0, 0);
   const upcoming = events.filter(e => new Date(e.date) >= today).length;
-  const badge   = document.getElementById('events-count');
+  const badge    = document.getElementById('events-count');
   if (badge) badge.textContent = upcoming || '';
 }
 
