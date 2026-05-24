@@ -23,8 +23,8 @@
   --border-lg: rgba(232,226,212,0.28);
 
   /* ── Tipografia */
-  --font-display: 'Anton', 'Arial Black', sans-serif;
-  --font-body:    'DM Mono', 'Space Mono', monospace;
+  --font-display: 'Inter', 'Arial Black', sans-serif;
+  --font-body:    'IBM Plex Serif', 'Space Mono', monospace;
 
   /* ── Layout */
   --max-w:  1200px;
