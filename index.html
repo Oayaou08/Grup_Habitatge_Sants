@@ -14,23 +14,29 @@
 
   <!--
     FONTS:
-    - Anton       → titulars / display (identitat activista)
-    - DM Mono     → cos de text (substitueix Space Mono, més llegible)
-  -->
+    - Anton       → titulars / display 
+    - DM Mono     → cos de text
+    -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+  <!-- Leaflet CSS — mapa interactiu -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <!-- Estils específics del mapa (popup, markers, controls) -->
+  <link rel="stylesheet" href="css/map.css">
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
-
+  <!-- AVÍS DE CONNEXIÓ
+       Injectat per main.js si hi ha error de xarxa.-->
   <div id="connection-warning" role="alert" aria-live="polite"></div>
 
 
-  <!--HEADER -->
+  <!-- HEADER-->
   <header class="site-header" role="banner">
     <div class="container">
       <div class="header-inner">
@@ -149,7 +155,9 @@
   </header>
 
 
-  <!--ALERT BAR -->
+  <!-- ALERT BAR — Ticker de pròximes accions
+       Poblat dinàmicament per render.js
+  -->
   <div class="alert-bar" role="marquee" aria-label="Pròximes accions">
     <div class="alert-label">ACCIONS</div>
     <div class="alert-ticker-wrap">
@@ -160,7 +168,7 @@
 
   <main>
 
-    <!-- HERO-->
+    <!--HERO-->
     <section id="hero" aria-label="Portada">
       <div class="hero-bg-text" aria-hidden="true">GHAS</div>
 
@@ -201,7 +209,7 @@
     </section>
 
 
-    <!-- MANIFESTO STRIP — Text en moviment continu-->
+    <!-- MANIFESTO STRIP — Text en moviment continu -->
     <div class="manifesto-strip" aria-hidden="true">
       <div class="manifesto-inner">
         <span class="manifesto-item">Dret a l'habitatge</span><span class="manifesto-dot">◆</span>
@@ -241,9 +249,7 @@
     </section>
 
 
-    <!-- ═══════════════════════════════════════════════════
-         CITA / QUOTE
-    ════════════════════════════════════════════════════ -->
+    <!-- CITA / QUOTE-->
     <div class="quote-section" aria-hidden="true">
       <div class="container">
         <div class="quote-inner">
@@ -254,10 +260,8 @@
     </div>
 
 
-    <!-- ═══════════════════════════════════════════════════
-         NOTÍCIES
-         Poblat per render.js → renderNews() + renderNewsFilters()
-    ════════════════════════════════════════════════════ -->
+    <!-- NOTÍCIES
+         Poblat per render.js → renderNews() + renderNewsFilters()-->
     <section id="news" class="section" aria-labelledby="news-heading">
       <div class="container">
         <h2 class="section-title" id="news-heading">Notícies</h2>
@@ -273,9 +277,7 @@
     </section>
 
 
-    <!-- ═══════════════════════════════════════════════════
-         QUI SOM
-    ════════════════════════════════════════════════════ -->
+    <!-- QUI SOM-->
     <section id="about" class="section" aria-labelledby="about-heading">
       <div class="container">
         <h2 class="section-title" id="about-heading">Qui som</h2>
@@ -339,142 +341,45 @@
 
         <div class="map-layout">
 
-          <!-- ── SVG interactiu de Catalunya ───────────────────────── -->
-          <div class="map-svg-wrapper">
-            <svg
-              class="map-svg"
-              viewBox="0 0 500 450"
-              role="img"
-              aria-label="Mapa de Catalunya amb la ubicació dels grups d'habitatge"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <radialGradient id="mapGlow" cx="62%" cy="58%" r="52%">
-                  <stop offset="0%"   stop-color="var(--red)"   stop-opacity="0.07"/>
-                  <stop offset="100%" stop-color="transparent"/>
-                </radialGradient>
-                <filter id="nodeglow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
+          <!-- ── Mapa Leaflet (satèl·lit / mapa fosc) ─────────────── -->
+          <div class="map-leaflet-wrapper">
 
-              <!-- Fons amb gradient radial subtil -->
-              <rect width="500" height="450" fill="url(#mapGlow)"/>
+            <!-- Contenidor del mapa Leaflet — inicialitzat per js/map.js -->
+            <div id="leaflet-map" aria-label="Mapa interactiu dels grups d'habitatge a Catalunya"></div>
 
-              <!-- ── CONTORN DE CATALUNYA (path simplificat) ──────────
-                   Forma recognoscible però no cartogràficament exacta.
-                   Per un contorn precís, substitueix aquest path per un
-                   fitxer GeoJSON convertit a SVG (ex: topojson + d3).
-              ───────────────────────────────────────────────────── -->
-              <path
-                class="catalonia-outline"
-                d="
-                  M 55,72
-                  C 90,52 162,28 232,18
-                  C 292,10 342,16 374,38
-                  L 408,72
-                  C 428,96 442,128 446,160
-                  L 448,202
-                  C 448,232 440,258 430,278
-                  L 414,302
-                  C 400,322 384,338 368,355
-                  L 338,387
-                  C 316,410 288,430 256,440
-                  L 218,446
-                  C 188,446 163,433 138,416
-                  L 102,390
-                  C 76,368 56,340 46,308
-                  L 36,268
-                  C 28,238 26,204 30,172
-                  L 36,128
-                  Z
-                "
-              />
+            <!-- Toggle de capes: Satèl·lit ↔ Mapa -->
+            <div class="map-layer-toggle" id="map-layer-toggle" aria-label="Canviar capa del mapa">
+              <button class="layer-btn layer-btn--active" data-layer="satellite" title="Vista satèl·lit">
+                <span aria-hidden="true">🛰</span> Satèl·lit
+              </button>
+              <button class="layer-btn" data-layer="dark" title="Mapa fosc">
+                <span aria-hidden="true">◉</span> Mapa
+              </button>
+            </div>
 
-              <!-- Retícula de referència subtil (pot eliminar-se) -->
-              <line x1="0" y1="224" x2="500" y2="224" class="map-grid-line"/>
-              <line x1="250" y1="0" x2="250" y2="450" class="map-grid-line"/>
-
-              <!-- ══ NODES DE GRUPS ════════════════════════════════════
-                   Copia aquest bloc <g> per a cada nou grup.
-                   Ajusta cx/cy segons la taula de coordenades del comentari
-                   de la secció. Canvia data-group, data-city, data-url.
-              ══════════════════════════════════════════════════════ -->
-
-              <!-- NODE 1 · GHAS — Sants, Barcelona -->
-              <g class="map-node map-node--active"
-                 data-group="GHAS"
-                 data-city="Barcelona (Sants)"
-                 data-url="https://gruphabitatgesants.cat"
-                 role="button" tabindex="0"
-                 aria-label="GHAS - Grup d'Habitatge de Sants, Barcelona">
-                <circle class="map-node__pulse" cx="380" cy="288" r="6"/>
-                <circle class="map-node__dot"   cx="380" cy="288" r="6" filter="url(#nodeglow)"/>
-                <text   class="map-node__label" x="380" y="276">GHAS</text>
-              </g>
-
-              <!-- NODE 2 · Sindicat de Llogateres — Sabadell -->
-              <g class="map-node"
-                 data-group="SDL Sabadell"
-                 data-city="Sabadell"
-                 data-url="#"
-                 role="button" tabindex="0"
-                 aria-label="Sindicat de Llogateres de Sabadell">
-                <circle class="map-node__pulse" cx="320" cy="260" r="6"/>
-                <circle class="map-node__dot"   cx="320" cy="260" r="6" filter="url(#nodeglow)"/>
-                <text   class="map-node__label" x="320" y="248">Sabadell</text>
-              </g>
-
-              <!-- NODE 3 · Col·lectiu Habitatge — Lleida -->
-              <g class="map-node"
-                 data-group="CH Lleida"
-                 data-city="Lleida"
-                 data-url="#"
-                 role="button" tabindex="0"
-                 aria-label="Col·lectiu Habitatge Lleida">
-                <circle class="map-node__pulse" cx="148" cy="240" r="6"/>
-                <circle class="map-node__dot"   cx="148" cy="240" r="6" filter="url(#nodeglow)"/>
-                <text   class="map-node__label" x="148" y="228">Lleida</text>
-              </g>
-
-              <!-- ── AFEGEIX NOUS NODES AQUÍ ──
-                   Exemple (Girona):
-                   <g class="map-node" data-group="SLL Girona" data-city="Girona" data-url="#"
-                      role="button" tabindex="0" aria-label="Sindicat de Llogateres Girona">
-                     <circle class="map-node__pulse" cx="402" cy="152" r="6"/>
-                     <circle class="map-node__dot"   cx="402" cy="152" r="6" filter="url(#nodeglow)"/>
-                     <text   class="map-node__label" x="402" y="140">Girona</text>
-                   </g>
-              ───────────────────────────────── -->
-
-            </svg>
-          </div><!-- /map-svg-wrapper -->
+          </div><!-- /map-leaflet-wrapper -->
 
 
-          <!-- ── Llegenda i llista de grups ───────────────────────── -->
+          <!-- Llegenda i llista de grups -->
           <aside class="map-legend" aria-label="Llegenda i llista de grups">
             <h3 class="map-legend__title">Grups actius</h3>
 
             <ul class="map-legend__list">
 
               <!-- LLEGENDA 1 — GHAS -->
-              <!-- data-node ha de coincidir amb data-group del SVG -->
-              <li class="map-legend__item map-legend__item--active" data-node="GHAS">
+              <!-- data-node ha de coincidir amb l'id del grup a js/map.js -->
+              <li class="map-legend__item map-legend__item--active" data-node="ghas">
                 <span class="map-legend__dot"></span>
                 <div class="map-legend__info">
                   <strong class="map-legend__name">GHAS</strong>
                   <span class="map-legend__city">Barcelona · Sants</span>
-                  <a href="#" class="map-legend__link"
+                  <a href="https://gruphabitatgesants.cat" class="map-legend__link"
                      target="_blank" rel="noopener">Visitar ↗</a>
                 </div>
               </li>
 
               <!-- LLEGENDA 2 — SDL Sabadell -->
-              <li class="map-legend__item" data-node="SDL Sabadell">
+              <li class="map-legend__item" data-node="sdl-sabadell">
                 <span class="map-legend__dot"></span>
                 <div class="map-legend__info">
                   <strong class="map-legend__name">Sindicat de Llogateres</strong>
@@ -483,29 +388,30 @@
                 </div>
               </li>
 
-              <!-- LLEGENDA 3 — CH Lleida -->
-              <li class="map-legend__item" data-node="CH Lleida">
-                <span class="map-legend__dot"></span>
-                <div class="map-legend__info">
-                  <strong class="map-legend__name">Col·lectiu Habitatge</strong>
-                  <span class="map-legend__city">Lleida</span>
-                  <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
-                </div>
-              </li>
-
               <!--
-                AFEGEIX MÉS GRUPS AQUÍ replicant l'estructura <li> anterior.
+                ═══════════════════════════════════════════════════
+                COM AFEGIR UN NOU GRUP A LA LLEGENDA:
+                1. Copia el bloc <li> anterior.
+                2. Canvia data-node perquè coincideixi amb l'id
+                   del grup que afegeixes a GROUPS[] a js/map.js.
+                3. Actualitza nom, ciutat i url.
+                ═══════════════════════════════════════════════════
                 Exemple:
-                <li class="map-legend__item" data-node="SLL Girona">
+                <li class="map-legend__item" data-node="col-lleida">
                   <span class="map-legend__dot"></span>
                   <div class="map-legend__info">
-                    <strong class="map-legend__name">Sindicat de Llogateres Girona</strong>
-                    <span class="map-legend__city">Girona</span>
+                    <strong class="map-legend__name">Col·lectiu Habitatge</strong>
+                    <span class="map-legend__city">Lleida</span>
                     <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
                   </div>
                 </li>
               -->
             </ul>
+
+            <div class="map-legend__cta">
+              <p>El teu grup no hi és?</p>
+              <a href="#contact" class="btn-ghost">Contacta'ns</a>
+            </div>
           </aside>
 
         </div><!-- /map-layout -->
@@ -513,7 +419,7 @@
     </section>
 
 
-    <!--CONTACTE-->
+    <!-- CONTACTE -->
     <section id="contact" class="section" aria-labelledby="contact-heading">
       <div class="container">
         <h2 class="section-title" id="contact-heading">Contacte</h2>
@@ -547,9 +453,7 @@
   </main>
 
 
-  <!-- ═══════════════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════════════════ -->
+  <!-- Footer/peu de pàgina-->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-inner">
@@ -564,8 +468,13 @@
     </div>
   </footer>
 
+  <!-- Leaflet JS — carregat com a global (no mòdul) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs=" crossorigin=""></script>
+
   <!-- Mòduls JS -->
   <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/map.js"></script>
 
 </body>
 </html>
