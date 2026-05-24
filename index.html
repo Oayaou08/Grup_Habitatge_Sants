@@ -314,7 +314,7 @@
            ✅ Estructura SVG i llegenda completes
            ✅ 3 nodes d'exemple: GHAS (Barcelona), Sabadell, Lleida
            ⏳ Interactivitat JS (tooltip, filtre, highlight): PENDENT → js/map.js
-
+ 
          COM AFEGIR UN NOU GRUP:
            1. Al SVG: copia el bloc <g class="map-node"> i ajusta cx/cy.
               Referència de coordenades (viewBox 0 0 500 450):
@@ -334,20 +334,20 @@
     ════════════════════════════════════════════════════════════════════ -->
     <section id="map" class="section map-section" aria-labelledby="map-heading">
       <div class="container">
-
+ 
         <header class="map-header">
           <h2 class="section-title" id="map-heading">Xarxa de Sindicats</h2>
           <p class="map-subtitle">Col·lectius de defensa del dret a l'habitatge a Catalunya</p>
         </header>
-
+ 
         <div class="map-layout">
-
+ 
           <!-- ── Mapa Leaflet (satèl·lit / mapa fosc) ─────────────── -->
           <div class="map-leaflet-wrapper">
-
+ 
             <!-- Contenidor del mapa Leaflet — inicialitzat per js/map.js -->
             <div id="leaflet-map" aria-label="Mapa interactiu dels grups d'habitatge a Catalunya"></div>
-
+ 
             <!-- Toggle de capes: Satèl·lit ↔ Mapa -->
             <div class="map-layer-toggle" id="map-layer-toggle" aria-label="Canviar capa del mapa">
               <button class="layer-btn layer-btn--active" data-layer="satellite" title="Vista satèl·lit">
@@ -357,16 +357,16 @@
                 <span aria-hidden="true">◉</span> Mapa
               </button>
             </div>
-
+ 
           </div><!-- /map-leaflet-wrapper -->
-
-
-          <!-- Llegenda i llista de grups -->
+ 
+ 
+          <!-- ── Llegenda i llista de grups ───────────────────────── -->
           <aside class="map-legend" aria-label="Llegenda i llista de grups">
             <h3 class="map-legend__title">Grups actius</h3>
-
+ 
             <ul class="map-legend__list">
-
+ 
               <!-- LLEGENDA 1 — GHAS -->
               <!-- data-node ha de coincidir amb l'id del grup a js/map.js -->
               <li class="map-legend__item map-legend__item--active" data-node="ghas">
@@ -378,7 +378,7 @@
                      target="_blank" rel="noopener">Visitar ↗</a>
                 </div>
               </li>
-
+ 
               <!-- LLEGENDA 2 — SDL Sabadell -->
               <li class="map-legend__item" data-node="sdl-sabadell">
                 <span class="map-legend__dot"></span>
@@ -388,37 +388,7 @@
                   <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
                 </div>
               </li>
-
-              <!--
-                ═══════════════════════════════════════════════════
-                COM AFEGIR UN NOU GRUP A LA LLEGENDA:
-                1. Copia el bloc <li> anterior.
-                2. Canvia data-node perquè coincideixi amb l'id
-                   del grup que afegeixes a GROUPS[] a js/map.js.
-                3. Actualitza nom, ciutat i url.
-                ═══════════════════════════════════════════════════
-                Exemple:
-                <li class="map-legend__item" data-node="col-lleida">
-                  <span class="map-legend__dot"></span>
-                  <div class="map-legend__info">
-                    <strong class="map-legend__name">Col·lectiu Habitatge</strong>
-                    <span class="map-legend__city">Lleida</span>
-                    <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
-                  </div>
-                </li>
-              -->
-            </ul>
-
-            <div class="map-legend__cta">
-              <p>El teu grup no hi és?</p>
-              <a href="#contact" class="btn-ghost">Contacta'ns</a>
-            </div>
-          </aside>
-
-        </div><!-- /map-layout -->
-      </div>
-    </section>
-
+  </section>
 
     <!-- CONTACTE -->
     <section id="contact" class="section" aria-labelledby="contact-heading">
