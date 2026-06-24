@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa de sindicatos en Catalunya</title>
+
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="css/mapa.css">
+  </head>
+
+  <body>
+    <header>
+      <h1>Mapa de sindicatos en Catalunya</h1>
+      <p>Haz clic en cada punto para ver la información del sindicato</p>
+    </header>
+
+    <main class="map-section">
+      <div class="map-card">
+        <div class="map-info-panel">
+          <div class="eyebrow">Catalunya</div>
+          <h2>Sindicatos localizados</h2>
+          <p>
+            Consulta la ubicación de cada sindicato y accede a su información
+            principal desde el mapa interactivo.
+          </p>
+        </div>
+
+        <div id="map"></div>
+      </div>
+    </main>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+      const map = L.map("map", {
+        zoomControl: false,
+        scrollWheelZoom: true,
+      }).setView([41.82, 1.75], 8);
+
+      L.control
+        .zoom({
+          position: "bottomright",
+        })
+        .addTo(map);
+
+      // Capa visual más moderna que la de OpenStreetMap por defecto
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        {
+          maxZoom: 19,
+          attribution:
+            '&copy; OpenStreetMap &copy; <a href="https://carto.com/">CARTO</a>',
+        },
+      ).addTo(map);
+
+      const sindicatos = [
+        {
+          nombre: "Sindicat Can Batlló",
+          ciudad: "Barcelona",
+          direccion:
+            "Carrer de la Constitució, 19, Sants-Montjuïc, 08014 Barcelona",
+          telefono: "930 000 001",
+          web: "https://example.com",
+          lat: 41.3693679,
+          lng: 2.1345939,
+        },
+        {
+          nombre: "Sindicato Girona",
+          ciudad: "Girona",
+          direccion: "Carrer Nou, 25",
+          telefono: "930 000 002",
+          web: "https://example.com",
+          lat: 41.9794,
+          lng: 2.8214,
+        },
+        {
+          nombre: "Sindicato Tarragona",
+          ciudad: "Tarragona",
+          direccion: "Rambla Nova, 40",
+          telefono: "930 000 003",
+          web: "https://example.com",
+          lat: 41.1189,
+          lng: 1.2445,
+        },
+        {
+          nombre: "Sindicato Lleida",
+          ciudad: "Lleida",
+          direccion: "Avinguda Catalunya, 12",
+          telefono: "930 000 004",
+          web: "https://example.com",
+          lat: 41.6176,
+          lng: 0.62,
+        },
+        {
+          nombre: "Sindicato Sabadell",
+          ciudad: "Sabadell",
+          direccion: "Carrer de la Indústria, 8",
+          telefono: "930 000 005",
+          web: "https://example.com",
+          lat: 41.5463,
+          lng: 2.1086,
+        },
+      ];
+
+      const sindicatoIcon = L.divIcon({
+        className: "",
+        html: `
+          <div class="marker-wrapper">
+            <div class="marker-pulse"></div>
+            <div class="sindicat-marker">
+              <span>-</span>
+            </div>
+          </div>
+        `,
+        iconSize: [48, 48],
+        iconAnchor: [24, 48],
+        popupAnchor: [0, -44],
+      });
+
+      sindicatos.forEach((sindicato) => {
+        const popupContent = `
+          <div class="popup-sindicat">
+            <span class="popup-badge">${sindicato.ciudad}</span>
+            <h3>${sindicato.nombre}</h3>
+            <p><strong>Dirección:</strong><br>${sindicato.direccion}</p>
+            <p><strong>Teléfono:</strong> ${sindicato.telefono}</p>
+            <a href="${sindicato.web}" target="_blank" rel="noopener noreferrer">
+              Ver información
+            </a>
+          </div>
+        `;
+
+        L.marker([sindicato.lat, sindicato.lng], {
+          icon: sindicatoIcon,
+        })
+          .addTo(map)
+          .bindPopup(popupContent);
+      });
+
+      // Ajusta automáticamente el mapa para que se vean todos los puntos
+      const bounds = L.latLngBounds(
+        sindicatos.map((sindicato) => [sindicato.lat, sindicato.lng]),
+      );
+
+      map.fitBounds(bounds, {
+        padding: [70, 70],
+      });
+    </script>
+  </body>
+</html>

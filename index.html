@@ -119,46 +119,12 @@
               </li>
             </ul>
           </div>
-          <!--
-            JS A IMPLEMENTAR (js/i18n.js):
-
-            const langBtn  = document.getElementById('lang-btn');
-            const langMenu = document.getElementById('lang-menu');
-            const langOpts = langMenu.querySelectorAll('.lang-option');
-
-            langBtn.addEventListener('click', () => {
-              const open = langBtn.getAttribute('aria-expanded') === 'true';
-              langBtn.setAttribute('aria-expanded', String(!open));
-            });
-
-            document.addEventListener('click', (e) => {
-              if (!e.target.closest('#lang-selector')) {
-                langBtn.setAttribute('aria-expanded', 'false');
-              }
-            });
-
-            langOpts.forEach(opt => {
-              opt.addEventListener('click', () => {
-                langOpts.forEach(o => { o.classList.remove('lang-option--active'); o.setAttribute('aria-selected','false'); });
-                opt.classList.add('lang-option--active');
-                opt.setAttribute('aria-selected', 'true');
-                document.getElementById('lang-current').textContent = opt.dataset.lang.toUpperCase();
-                langBtn.setAttribute('aria-expanded', 'false');
-                // Aquí: carregar traduccions / redirigir a subpath
-                // document.documentElement.lang = opt.dataset.lang;
-              });
-            });
-          -->
-
         </div><!-- /header-controls -->
       </div>
     </div>
   </header>
 
 
-  <!-- ALERT BAR — Ticker de pròximes accions
-       Poblat dinàmicament per render.js
-  -->
   <div class="alert-bar" role="marquee" aria-label="Pròximes accions">
     <div class="alert-label">ACCIONS</div>
     <div class="alert-ticker-wrap">
@@ -239,8 +205,7 @@
       </div>
     </div>
     
-    <!-- ACCIONS / EVENTS
-         Poblat per render.js → renderEvents()-->
+    <!-- ACCIONS / EVENTS-->
     <section id="events" class="section" aria-labelledby="events-heading">
       <div class="container">
         <div class="events-header">
@@ -253,7 +218,6 @@
         </div>
         <div class="events-grid" id="events-grid"
              role="list" aria-live="polite" aria-label="Llista d'accions">
-          <!-- Poblat per render.js -->
         </div>
       </div>
     </section>
@@ -261,18 +225,15 @@
 
 
 
-    <!-- NOTÍCIES
-         Poblat per render.js → renderNews() + renderNewsFilters()-->
+    <!-- NOTÍCIES-->
     <section id="news" class="section" aria-labelledby="news-heading">
       <div class="container">
         <h2 class="section-title" id="news-heading">Notícies</h2>
         <div class="news-filters" id="news-filters"
              role="group" aria-label="Filtre de notícies">
-          <!-- Poblat per render.js -->
         </div>
         <div class="news-grid" id="news-grid"
              role="list" aria-live="polite" aria-label="Llista de notícies">
-          <!-- Poblat per render.js -->
         </div>
       </div>
     </section>
@@ -303,90 +264,13 @@
             </ul>
           </div>
         </div>
+        
+      </div>
+      <div  class="about-col">
+        <h3><a href="mapa.html">Veure mapa de sindicats de Catalunya</a></h3>
       </div>
     </section>
 
-
-    <!-- ═══════════════════════════════════════════════════════════════════
-         MAPA DE XARXA DE SINDICATS / GRUPS D'HABITATGE A CATALUNYA
-         ───────────────────────────────────────────────────────────────
-         ESTAT ACTUAL:
-           ✅ Estructura SVG i llegenda completes
-           ✅ 3 nodes d'exemple: GHAS (Barcelona), Sabadell, Lleida
-           ⏳ Interactivitat JS (tooltip, filtre, highlight): PENDENT → js/map.js
- 
-         COM AFEGIR UN NOU GRUP:
-           1. Al SVG: copia el bloc <g class="map-node"> i ajusta cx/cy.
-              Referència de coordenades (viewBox 0 0 500 450):
-                Barcelona centre → cx="380" cy="288"
-                Girona           → cx="402" cy="152"
-                Lleida           → cx="148" cy="240"
-                Tarragona        → cx="332" cy="372"
-                Manresa          → cx="268" cy="252"
-                Terrassa         → cx="314" cy="264"
-                Mataró           → cx="418" cy="268"
-                Sabadell         → cx="320" cy="260"
-                Vic              → cx="336" cy="210"
-                Reus             → cx="316" cy="360"
-           2. A la llegenda: copia el bloc <li class="map-legend__item">.
-           3. Assegura't que data-node del <li> coincideixi amb
-              data-group del <g> al SVG (la JS els vincula).
-    ════════════════════════════════════════════════════════════════════ -->
-    <section id="map" class="section map-section" aria-labelledby="map-heading">
-      <div class="container">
- 
-        <header class="map-header">
-          <h2 class="section-title" id="map-heading">Xarxa de Sindicats</h2>
-          <p class="map-subtitle">Col·lectius de defensa del dret a l'habitatge a Catalunya</p>
-        </header>
- 
-        <div class="map-layout">
- 
-          <!-- ── Mapa Leaflet (satèl·lit / mapa fosc) ─────────────── -->
-          <div class="map-leaflet-wrapper">
- 
-            <!-- Contenidor del mapa Leaflet — inicialitzat per js/map.js -->
-            <div id="leaflet-map" aria-label="Mapa interactiu dels grups d'habitatge a Catalunya"></div>
- 
-            <!-- Toggle de capes: Satèl·lit ↔ Mapa -->
-            <div class="map-layer-toggle" id="map-layer-toggle" aria-label="Canviar capa del mapa">
-              <button class="layer-btn" data-layer="dark" title="Mapa fosc">
-                <span aria-hidden="true">◉</span> Mapa
-              </button>
-            </div>
- 
-          </div><!-- /map-leaflet-wrapper -->
- 
- 
-          <!-- ── Llegenda i llista de grups ───────────────────────── -->
-          <aside class="map-legend" aria-label="Llegenda i llista de grups">
-            <h3 class="map-legend__title">Grups actius</h3>
- 
-            <ul class="map-legend__list">
- 
-              <!-- LLEGENDA 1 — GHAS -->
-              <li class="map-legend__item map-legend__item--active" data-node="ghas">
-                <span class="map-legend__dot"></span>
-                <div class="map-legend__info">
-                  <strong class="map-legend__name">Grup d'Habitatge de Sants</strong>
-                  <span class="map-legend__city">Barcelona · Sants</span>
-                  <span class="map-legend__city">Assamblees a Can Batlló</span>
-                  <span class="map-legend__city">Hora: 18:30</span>
-                  <a href="https://gruphabitatgesants.cat" class="map-legend__link"
-                     target="_blank" rel="noopener">Visitar ↗</a>
-                </div>
-              </li>
- 
-              <!-- LLEGENDA 2 -->
-              <li class="map-legend__item" data-node="sdl-sabadell">
-                <span class="map-legend__dot"></span>
-                <div class="map-legend__info">
-                  <strong class="map-legend__name">Sindicat de Llogateres</strong>
-                  <span class="map-legend__city">Barcelona</span>
-                  <a href="#" class="map-legend__link" target="_blank" rel="noopener">Visitar ↗</a>
-                </div>
-              </li>
-  </section>
 
     <!-- CONTACTE -->
     <section id="contact" class="section" aria-labelledby="contact-heading">
